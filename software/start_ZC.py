@@ -26,7 +26,7 @@ with open("settings.yml", 'r') as stream, open("secrets.yml", 'r') as secret:
 
     for rx_ssh, rx_ip in zip(recievers_SSH,recievers_IP):
     	rx_ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-		rx_ssh.connect(rx_ip, username="pi", password=secrets["password"], port=22)
+	rx_ssh.connect(rx_ip, username="pi", password=secrets["password"], port=22)
 
 	tx_ssh = SSHClient()
 	tx_ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -71,7 +71,7 @@ with open("settings.yml", 'r') as stream, open("secrets.yml", 'r') as secret:
 	def progress(filename, size, sent):
 		global pbar
 		if pbar is None:
-			pbar = tqdm(total=size, desc=f"Downloading to {filename}", unit="B", unit_scale=True, unit_divisor=1024, miniters=1, dynamic_ncols=True)
+		pbar = tqdm(total=size, desc=f"Downloading to {filename}", unit="B", unit_scale=True, unit_divisor=1024, miniters=1, dynamic_ncols=True)
 		pbar.refresh()
 		pbar.update(round(float(sent),2)-pbar.n)
 		pbar.refresh()
