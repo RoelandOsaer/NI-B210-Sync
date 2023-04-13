@@ -1,5 +1,10 @@
 ## How to run the Zadoff-Chu RX test
 
+### Run script start_ZC.py
+Do not forget to create a `secrets.yml` file containing the password for the RPIs.
+
+
+### Old way of doing it
 
 [git clone ](https://github.com/techtile-by-dramco/NI-B210-Sync.git)
 
