@@ -187,8 +187,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         if (!ignore_sync)
         {
-                ready_to_go(serial);        // non-blocking
-                wait_till_go_from_server(); // blocking till SYNC message received
+                ready_to_go(serial,server_ip);        // non-blocking
+                wait_till_go_from_server(server_ip); // blocking till SYNC message received
         }
         else
         {
