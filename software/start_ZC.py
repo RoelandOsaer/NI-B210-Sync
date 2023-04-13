@@ -13,7 +13,7 @@ with open("settings.yml", 'r') as stream, open("secrets.yml", 'r') as secret:
 
     recievers_IP = settings["RX"]
     transmitter_IP = settings["TX"]  #TODO currently assumes one TX only
-   	server_IP = settings["server"]
+    server_IP = settings["server"]
 
     rx_root = settings["RX_root"]
     tx_root = settings["TX_root"]
