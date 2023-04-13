@@ -263,10 +263,10 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         md.end_of_burst = false;
         md.has_time_spec = true;
 
-        cmd_time += 2.0; //16
+        cmd_time += 4.0; //16
         md.time_spec = uhd::time_spec_t(cmd_time);
 
-        size_t num_requested_samples = rate*15;
+        size_t num_requested_samples = rate*10;
 
         size_t num_total_samps = 0;
         
