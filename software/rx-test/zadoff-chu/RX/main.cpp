@@ -19,7 +19,7 @@ zmq::context_t context(1);
 
 
 
-void ready_to_go(std::string id)
+void ready_to_go(std::string id, std::string server_ip)
 {
         // REQ RES pattern
         // let server now that you are ready and waiting for a SYNC command
@@ -28,7 +28,7 @@ void ready_to_go(std::string id)
         zmq::socket_t socket(context, zmq::socket_type::req);
 
         std::cout << "Connecting to server..." << std::endl;
-        socket.connect("tcp://10.128.48.4:5555");
+        socket.connect("tcp://"+server_ip+":5555");
 
         zmq::message_t request(id.size());
         memcpy(request.data(), id.data(), id.size());
@@ -40,21 +40,21 @@ void ready_to_go(std::string id)
         //  Get the reply.
         zmq::message_t reply;
         auto res = socket.recv(reply, zmq::recv_flags::none);
-        // std::cout << "Received: " << res << std::endl;
+        std::cout << "Received" << std::endl;
 }
 
-void wait_till_go_from_server(void)
+void wait_till_go_from_server(std::string server_ip)
 {
         // TODO check if received message is SYNC
         //   Socket to receive messages on
         zmq::socket_t subscriber(context, ZMQ_SUB);
-        subscriber.connect("tcp://10.128.48.4:5557");
+        subscriber.connect("tcp://"+server_ip+":5557");
         zmq_setsockopt(subscriber, ZMQ_SUBSCRIBE, "", 0);
 
         zmq::message_t msg;
         auto res = subscriber.recv(&msg);
-        // std::string msg_str = std::string(static_cast<char *>(msg.data()), msg.size());
-        // std::cout << "Received '" << msg_str << "'" << std::endl;
+        std::string msg_str = std::string(static_cast<char *>(msg.data()), msg.size());
+        std::cout << "Received '" << msg_str << "'" << std::endl;
 }
 
 int UHD_SAFE_MAIN(int argc, char *argv[])
@@ -62,12 +62,16 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::string str_args;
         std::string port;
+        std::string server_ip;
         bool ignore_sync = false;
+        double rate;
 
         po::options_description desc("Allowed options");
         desc.add_options()("help", "produce help message")
         ("args", po::value<std::string>(&str_args)->default_value("type=b200,mode_n=integer"), "give device arguments here")
         ("iq_port", po::value<std::string>(&port)->default_value("8888"), "Port to stream IQ samples to")
+        ("server-ip", ppo::value<std::string>(&server_ip), "SYNC server IP address")
+        ("rate", po::value<double>(&rate)->default_value(1e6), "rate of incoming samples")
         ("ignore-server", po::bool_switch(&ignore_sync), "Discard waiting till SYNC server");
 
         po::variables_map vm;
@@ -130,7 +134,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         if (!ignore_sync)
         {
                 ready_to_go(serial);        // non-blocking
-                wait_till_go_from_server(); // blocking till SYNC message received
+                wait_till_go_from_server(server_ip); // blocking till SYNC message received
         }else{
                 std::cout << "Ignoring waiting for server" << std::endl;
         }
@@ -151,7 +155,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_normalized_rx_gain(0.7);
 
         usrp->clear_command_time();
-        double rate = RATE;
+        //double rate = RATE;
         // set the rx sample rate
         std::cout << boost::format("Setting RX Rate: %f Msps...") % (rate / 1e6) << std::endl;
         cmd_time += 2.0; //7
