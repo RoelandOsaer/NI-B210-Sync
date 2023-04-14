@@ -137,7 +137,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         desc.add_options()("help", "produce help message")
         ("args", po::value<std::string>(&str_args)->default_value("type=b200,mode_n=integer"), "give device arguments here")
         ("iq_port", po::value<std::string>(&port)->default_value("8888"), "Port to stream IQ samples to")
-        ("server-ip", ppo::value<std::string>(&server_ip), "SYNC server IP address")
+        ("server-ip", po::value<std::string>(&server_ip), "SYNC server IP address")
         ("rate", po::value<double>(&rate)->default_value(1e6), "rate of incoming samples")
         ("ignore-server", po::bool_switch(&ignore_sync), "Discard waiting till SYNC server");
 
@@ -263,10 +263,10 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         md.end_of_burst = false;
         md.has_time_spec = true;
 
-        cmd_time += 5.0; //16
+        cmd_time += 5; //16
         md.time_spec = uhd::time_spec_t(cmd_time);
 
-        size_t num_requested_samples = rate*15;
+        size_t num_requested_samples = rate*2;
 
         size_t num_total_samps = 0;
         

@@ -1,11 +1,17 @@
 RX:
-  - 10.128.48.3
-  - 10.128.52.29
-TX:
-  - 10.128.52.14
-TX_root: "~/NI-B210-Sync/software/rx-test/zadoff-chu/TX"
-RX_root: "~/NI-B210-Sync/software/rx-test/zadoff-chu/RX"
-server: "10.128.52.14"
-server_root: "~/NI-B210-Sync/software/rx-test"
-rate: 1000000
-server: 
+  - "10.128.48.3"
+  - "10.128.52.29"
+TX: "10.128.52.14"
+TX_root: "/home/pi/NI-B210-Sync/software/rx-test/zadoff-chu/TX"
+RX_root: "/home/pi/NI-B210-Sync/software/rx-test/zadoff-chu/RX"
+server: "10.128.52.28"
+server_root: "/home/pi/NI-B210-Sync/software/rx-test"
+rates: 
+  - 250e3
+  - 1e6
+  - 4e6
+  - 10e6
+  - 15e6
+  - 20e6
+
+

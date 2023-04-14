@@ -28,7 +28,7 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 8]
+    coordinate: [104, 76.0]
     rotation: 0
     state: enabled
 
@@ -42,7 +42,19 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [328, 20.0]
+    coordinate: [376, 84.0]
+    rotation: 0
+    state: true
+- name: number_of_points_multiplier
+  id: variable
+  parameters:
+    comment: ''
+    value: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [952, 84.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -54,7 +66,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 12]
+    coordinate: [280, 84.0]
     rotation: 0
     state: enabled
 - name: seq
@@ -66,7 +78,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 36.0]
+    coordinate: [456, 84.0]
     rotation: 0
     state: true
 - name: seq_len
@@ -78,7 +90,19 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [896, 20.0]
+    coordinate: [776, 84.0]
+    rotation: 0
+    state: true
+- name: throtle_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 2e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [856, 84.0]
     rotation: 0
     state: true
 - name: ZC
@@ -107,7 +131,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [648, 44.0]
+    coordinate: [648, 84.0]
     rotation: 0
     state: true
 - name: blocks_complex_to_mag_1
@@ -123,7 +147,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1064, 320.0]
+    coordinate: [1000, 296.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_mag_1_0
@@ -139,7 +163,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1016, 472.0]
+    coordinate: [1000, 448.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_mag_1_1
@@ -155,7 +179,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1064, 656.0]
+    coordinate: [1008, 608.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_mag_1_1_0
@@ -171,7 +195,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1608, 872.0]
+    coordinate: [1272, 760.0]
     rotation: 0
     state: enabled
 - name: blocks_file_source_0
@@ -181,7 +205,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2BD7_0.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_0.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -203,7 +227,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2BD7_1.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_1.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -215,7 +239,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [80, 396.0]
+    coordinate: [96, 396.0]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0_0
@@ -225,7 +249,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2C39_0.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_0.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -237,7 +261,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [80, 564.0]
+    coordinate: [96, 556.0]
     rotation: 0
     state: enabled
 - name: blocks_file_source_0_0_0_0
@@ -247,7 +271,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2C39_1.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_1.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -259,7 +283,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [80, 692.0]
+    coordinate: [96, 692.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0
@@ -271,14 +295,14 @@ blocks:
     ignoretag: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    samples_per_second: samp_rate
+    samples_per_second: throtle_rate
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [760, 292.0]
+    coordinate: [744, 292.0]
     rotation: 0
     state: true
 - name: blocks_throttle_0_0
@@ -290,14 +314,14 @@ blocks:
     ignoretag: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    samples_per_second: samp_rate
+    samples_per_second: throtle_rate
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [752, 468.0]
+    coordinate: [744, 444.0]
     rotation: 0
     state: true
 - name: blocks_throttle_0_0_0
@@ -309,14 +333,14 @@ blocks:
     ignoretag: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    samples_per_second: samp_rate
+    samples_per_second: throtle_rate
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [864, 660.0]
+    coordinate: [744, 604.0]
     rotation: 0
     state: true
 - name: blocks_throttle_0_0_0_0
@@ -328,14 +352,14 @@ blocks:
     ignoretag: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    samples_per_second: samp_rate
+    samples_per_second: throtle_rate
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1328, 868.0]
+    coordinate: [1016, 756.0]
     rotation: 0
     state: true
 - name: blocks_vector_source_x_0_0
@@ -355,7 +379,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [80, 948.0]
+    coordinate: [96, 860.0]
     rotation: 0
     state: true
 - name: blocks_vector_to_stream_0
@@ -373,7 +397,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 1000.0]
+    coordinate: [520, 888.0]
     rotation: 0
     state: true
 - name: fft_vxx_0
@@ -394,7 +418,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [304, 932.0]
+    coordinate: [296, 852.0]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0_0_0
@@ -452,7 +476,7 @@ blocks:
     marker9: '-1'
     name: '"USRP1"'
     nconnections: '1'
-    size: seq_len
+    size: seq_len*number_of_points_multiplier
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -491,7 +515,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1320, 300.0]
+    coordinate: [1272, 268.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_0_0_0
@@ -549,7 +573,7 @@ blocks:
     marker9: '-1'
     name: '"USRP1 vs USRP2"'
     nconnections: '1'
-    size: seq_len
+    size: seq_len*number_of_points_multiplier
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -588,7 +612,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1272, 444.0]
+    coordinate: [1272, 420.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_0_0_1
@@ -646,7 +670,7 @@ blocks:
     marker9: '-1'
     name: '"USRP2"'
     nconnections: '1'
-    size: seq_len
+    size: seq_len*number_of_points_multiplier
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -685,7 +709,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1320, 636.0]
+    coordinate: [1272, 580.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_0_0_1_0
@@ -782,7 +806,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2008, 876.0]
+    coordinate: [1520, 732.0]
     rotation: 0
     state: enabled
 - name: xcorr_0
@@ -798,7 +822,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [456, 288.0]
+    coordinate: [456, 280.0]
     rotation: 0
     state: enabled
 - name: xcorr_0_0
@@ -814,7 +838,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 456.0]
+    coordinate: [456, 432.0]
     rotation: 0
     state: enabled
 - name: xcorr_0_1
@@ -830,7 +854,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [664, 632.0]
+    coordinate: [464, 592.0]
     rotation: 0
     state: enabled
 - name: xcorr_0_1_0
@@ -846,7 +870,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [848, 864.0]
+    coordinate: [752, 744.0]
     rotation: 0
     state: enabled
 
@@ -857,8 +881,8 @@ connections:
 - [blocks_complex_to_mag_1_1_0, '0', qtgui_time_sink_x_0_0_0_0_1_0, '0']
 - [blocks_file_source_0, '0', xcorr_0, '0']
 - [blocks_file_source_0_0, '0', xcorr_0, '1']
-- [blocks_file_source_0_0, '0', xcorr_0_0, '1']
-- [blocks_file_source_0_0_0, '0', xcorr_0_0, '0']
+- [blocks_file_source_0_0, '0', xcorr_0_0, '0']
+- [blocks_file_source_0_0_0, '0', xcorr_0_0, '1']
 - [blocks_file_source_0_0_0, '0', xcorr_0_1, '0']
 - [blocks_file_source_0_0_0, '0', xcorr_0_1_0, '0']
 - [blocks_file_source_0_0_0_0, '0', xcorr_0_1, '1']

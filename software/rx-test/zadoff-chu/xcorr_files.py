@@ -21,19 +21,24 @@ if __name__ == '__main__':
         except:
             print("Warning: failed to XInitThreads()")
 
+import os
+import sys
+sys.path.append(os.environ.get('GRC_HIER_PATH', os.path.expanduser('~/.grc_gnuradio')))
+
 from PyQt5 import Qt
 from gnuradio import qtgui
 from gnuradio.filter import firdes
 import sip
 from gnuradio import blocks
 import pmt
-from gnuradio import gr
+from gnuradio import fft
 from gnuradio.fft import window
-import sys
+from gnuradio import gr
 import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
+from xcorr import xcorr  # grc-generated hier_block
 import xcorr_files_ZC as ZC  # embedded python module
 
 
@@ -77,32 +82,46 @@ class xcorr_files(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.seq_len = seq_len = 353
+        self.throtle_rate = throtle_rate = 2e6
         self.seq = seq = ZC.generate(7,seq_len)
         self.samp_rate = samp_rate = 250e3
+        self.number_of_points_multiplier = number_of_points_multiplier = 2
         self.fft_len = fft_len = seq_len*2
 
         ##################################################
         # Blocks
         ##################################################
-        self.qtgui_time_sink_x_0_0_0_0_0_0 = qtgui.time_sink_f(
-            seq_len, #size
+        self.xcorr_0_1_0 = xcorr(
+            fft_len=fft_len,
+        )
+        self.xcorr_0_1 = xcorr(
+            fft_len=fft_len,
+        )
+        self.xcorr_0_0 = xcorr(
+            fft_len=fft_len,
+        )
+        self.xcorr_0 = xcorr(
+            fft_len=fft_len,
+        )
+        self.qtgui_time_sink_x_0_0_0_0_1_0 = qtgui.time_sink_f(
+            int(500e3*5), #size
             samp_rate, #samp_rate
-            "USRP1 vs 2", #name
+            "USRP2+ZC", #name
             1, #number of inputs
             None # parent
         )
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_y_axis(0, 6.14)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.set_update_time(0.10)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.set_y_axis(-1, 1)
 
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_y_label('Amplitude', "")
+        self.qtgui_time_sink_x_0_0_0_0_1_0.set_y_label('Amplitude', "")
 
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_tags(True)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_grid(True)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_stem_plot(False)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.enable_tags(True)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0_0_0_0_1_0.enable_autoscale(True)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.enable_grid(False)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.enable_axis_labels(True)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.enable_control_panel(False)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.enable_stem_plot(False)
 
 
         labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
@@ -121,37 +140,89 @@ class xcorr_files(gr.top_block, Qt.QWidget):
 
         for i in range(1):
             if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_time_sink_x_0_0_0_0_1_0.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_alpha(i, alphas[i])
+                self.qtgui_time_sink_x_0_0_0_0_1_0.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_0_0_0_0_1_0.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_0_0_0_0_1_0.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_0_0_0_0_1_0.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_0_0_0_0_1_0.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_0_0_0_0_1_0.set_line_alpha(i, alphas[i])
 
-        self._qtgui_time_sink_x_0_0_0_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_0_0.qwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_0_win, 0, 2, 1, 1)
-        for r in range(0, 1):
+        self._qtgui_time_sink_x_0_0_0_0_1_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_1_0.qwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_1_0_win, 4, 0, 1, 1)
+        for r in range(4, 5):
             self.top_grid_layout.setRowStretch(r, 1)
-        for c in range(2, 3):
+        for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.qtgui_time_sink_x_0_0_0_0_0 = qtgui.time_sink_f(
-            seq_len, #size
+        self.qtgui_time_sink_x_0_0_0_0_1 = qtgui.time_sink_f(
+            seq_len*number_of_points_multiplier, #size
             samp_rate, #samp_rate
             "USRP2", #name
             1, #number of inputs
             None # parent
         )
+        self.qtgui_time_sink_x_0_0_0_0_1.set_update_time(0.10)
+        self.qtgui_time_sink_x_0_0_0_0_1.set_y_axis(-1, 1)
+
+        self.qtgui_time_sink_x_0_0_0_0_1.set_y_label('Amplitude', "")
+
+        self.qtgui_time_sink_x_0_0_0_0_1.enable_tags(True)
+        self.qtgui_time_sink_x_0_0_0_0_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0_0_0_0_1.enable_autoscale(True)
+        self.qtgui_time_sink_x_0_0_0_0_1.enable_grid(False)
+        self.qtgui_time_sink_x_0_0_0_0_1.enable_axis_labels(True)
+        self.qtgui_time_sink_x_0_0_0_0_1.enable_control_panel(False)
+        self.qtgui_time_sink_x_0_0_0_0_1.enable_stem_plot(False)
+
+
+        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
+            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
+        widths = [1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1]
+        colors = ['blue', 'red', 'green', 'black', 'cyan',
+            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0, 1.0, 1.0]
+        styles = [1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1]
+        markers = [-1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1]
+
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_time_sink_x_0_0_0_0_1.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_time_sink_x_0_0_0_0_1.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_0_0_0_0_1.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_0_0_0_0_1.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_0_0_0_0_1.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_0_0_0_0_1.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_0_0_0_0_1.set_line_alpha(i, alphas[i])
+
+        self._qtgui_time_sink_x_0_0_0_0_1_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_1.qwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_1_win, 1, 0, 1, 1)
+        for r in range(1, 2):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(0, 1):
+            self.top_grid_layout.setColumnStretch(c, 1)
+        self.qtgui_time_sink_x_0_0_0_0_0 = qtgui.time_sink_f(
+            seq_len*number_of_points_multiplier, #size
+            samp_rate, #samp_rate
+            "USRP1 vs USRP2", #name
+            1, #number of inputs
+            None # parent
+        )
         self.qtgui_time_sink_x_0_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0_0.set_y_axis(0, 6.14)
+        self.qtgui_time_sink_x_0_0_0_0_0.set_y_axis(-1, 1)
 
         self.qtgui_time_sink_x_0_0_0_0_0.set_y_label('Amplitude', "")
 
         self.qtgui_time_sink_x_0_0_0_0_0.enable_tags(True)
         self.qtgui_time_sink_x_0_0_0_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0_0_0_0.enable_grid(True)
+        self.qtgui_time_sink_x_0_0_0_0_0.enable_autoscale(True)
+        self.qtgui_time_sink_x_0_0_0_0_0.enable_grid(False)
         self.qtgui_time_sink_x_0_0_0_0_0.enable_axis_labels(True)
         self.qtgui_time_sink_x_0_0_0_0_0.enable_control_panel(False)
         self.qtgui_time_sink_x_0_0_0_0_0.enable_stem_plot(False)
@@ -183,27 +254,27 @@ class xcorr_files(gr.top_block, Qt.QWidget):
             self.qtgui_time_sink_x_0_0_0_0_0.set_line_alpha(i, alphas[i])
 
         self._qtgui_time_sink_x_0_0_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_0.qwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_win, 0, 1, 1, 1)
-        for r in range(0, 1):
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_win, 3, 0, 1, 1)
+        for r in range(3, 4):
             self.top_grid_layout.setRowStretch(r, 1)
-        for c in range(1, 2):
+        for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.qtgui_time_sink_x_0_0_0_0 = qtgui.time_sink_f(
-            seq_len, #size
+            seq_len*number_of_points_multiplier, #size
             samp_rate, #samp_rate
             "USRP1", #name
             1, #number of inputs
             None # parent
         )
         self.qtgui_time_sink_x_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0.set_y_axis(0, 6.14)
+        self.qtgui_time_sink_x_0_0_0_0.set_y_axis(-1, 1)
 
         self.qtgui_time_sink_x_0_0_0_0.set_y_label('Amplitude', "")
 
         self.qtgui_time_sink_x_0_0_0_0.enable_tags(True)
         self.qtgui_time_sink_x_0_0_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0_0_0.enable_grid(True)
+        self.qtgui_time_sink_x_0_0_0_0.enable_autoscale(True)
+        self.qtgui_time_sink_x_0_0_0_0.enable_grid(False)
         self.qtgui_time_sink_x_0_0_0_0.enable_axis_labels(True)
         self.qtgui_time_sink_x_0_0_0_0.enable_control_panel(False)
         self.qtgui_time_sink_x_0_0_0_0.enable_stem_plot(False)
@@ -240,51 +311,52 @@ class xcorr_files(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.blocks_throttle_0_1 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
-        self.blocks_throttle_0_0_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
-        self.blocks_throttle_0_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
-        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
-        self.blocks_multiply_conjugate_cc_0_0_0 = blocks.multiply_conjugate_cc(1)
-        self.blocks_multiply_conjugate_cc_0_0 = blocks.multiply_conjugate_cc(1)
-        self.blocks_multiply_conjugate_cc_0 = blocks.multiply_conjugate_cc(1)
-        self.blocks_file_source_0_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2C39_1.dat', False, 0, 0)
+        self.fft_vxx_0 = fft.fft_vcc(seq_len, False, (), True, 1)
+        self.blocks_vector_to_stream_0 = blocks.vector_to_stream(gr.sizeof_gr_complex*1, seq_len)
+        self.blocks_vector_source_x_0_0 = blocks.vector_source_c(seq, True, seq_len, [])
+        self.blocks_throttle_0_0_0_0 = blocks.throttle(gr.sizeof_gr_complex*1, throtle_rate,True)
+        self.blocks_throttle_0_0_0 = blocks.throttle(gr.sizeof_gr_complex*1, throtle_rate,True)
+        self.blocks_throttle_0_0 = blocks.throttle(gr.sizeof_gr_complex*1, throtle_rate,True)
+        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, throtle_rate,True)
+        self.blocks_file_source_0_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_1.dat', False, 0, 0)
         self.blocks_file_source_0_0_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2C39_0.dat', False, 0, 0)
+        self.blocks_file_source_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_0.dat', False, 0, 0)
         self.blocks_file_source_0_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2BD7_1.dat', False, 0, 0)
+        self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_1.dat', False, 0, 0)
         self.blocks_file_source_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile/NI-B210-Sync/software/rx-test/zadoff-chu/RX/usrp_samples_31E2BD7_0.dat', False, 0, 0)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_0.dat', False, 0, 0)
         self.blocks_file_source_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_complex_to_arg_0_0_0_0_0 = blocks.complex_to_arg(1)
-        self.blocks_complex_to_arg_0_0_0_0 = blocks.complex_to_arg(1)
-        self.blocks_complex_to_arg_0_0_0 = blocks.complex_to_arg(1)
-        self.blocks_abs_xx_0_0_0 = blocks.abs_ff(1)
-        self.blocks_abs_xx_0_0 = blocks.abs_ff(1)
-        self.blocks_abs_xx_0 = blocks.abs_ff(1)
+        self.blocks_complex_to_mag_1_1_0 = blocks.complex_to_mag(1)
+        self.blocks_complex_to_mag_1_1 = blocks.complex_to_mag(1)
+        self.blocks_complex_to_mag_1_0 = blocks.complex_to_mag(1)
+        self.blocks_complex_to_mag_1 = blocks.complex_to_mag(1)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_abs_xx_0, 0), (self.qtgui_time_sink_x_0_0_0_0, 0))
-        self.connect((self.blocks_abs_xx_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
-        self.connect((self.blocks_abs_xx_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0_0, 0))
-        self.connect((self.blocks_complex_to_arg_0_0_0, 0), (self.blocks_abs_xx_0, 0))
-        self.connect((self.blocks_complex_to_arg_0_0_0_0, 0), (self.blocks_abs_xx_0_0, 0))
-        self.connect((self.blocks_complex_to_arg_0_0_0_0_0, 0), (self.blocks_abs_xx_0_0_0, 0))
-        self.connect((self.blocks_file_source_0, 0), (self.blocks_throttle_0, 0))
-        self.connect((self.blocks_file_source_0_0, 0), (self.blocks_throttle_0_0, 0))
-        self.connect((self.blocks_file_source_0_0_0, 0), (self.blocks_throttle_0_1, 0))
-        self.connect((self.blocks_file_source_0_0_0_0, 0), (self.blocks_throttle_0_0_0, 0))
-        self.connect((self.blocks_multiply_conjugate_cc_0, 0), (self.blocks_complex_to_arg_0_0_0, 0))
-        self.connect((self.blocks_multiply_conjugate_cc_0_0, 0), (self.blocks_complex_to_arg_0_0_0_0, 0))
-        self.connect((self.blocks_multiply_conjugate_cc_0_0_0, 0), (self.blocks_complex_to_arg_0_0_0_0_0, 0))
-        self.connect((self.blocks_throttle_0, 0), (self.blocks_multiply_conjugate_cc_0, 0))
-        self.connect((self.blocks_throttle_0_0, 0), (self.blocks_multiply_conjugate_cc_0, 1))
-        self.connect((self.blocks_throttle_0_0, 0), (self.blocks_multiply_conjugate_cc_0_0_0, 0))
-        self.connect((self.blocks_throttle_0_0_0, 0), (self.blocks_multiply_conjugate_cc_0_0, 1))
-        self.connect((self.blocks_throttle_0_1, 0), (self.blocks_multiply_conjugate_cc_0_0, 0))
-        self.connect((self.blocks_throttle_0_1, 0), (self.blocks_multiply_conjugate_cc_0_0_0, 1))
+        self.connect((self.blocks_complex_to_mag_1, 0), (self.qtgui_time_sink_x_0_0_0_0, 0))
+        self.connect((self.blocks_complex_to_mag_1_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
+        self.connect((self.blocks_complex_to_mag_1_1, 0), (self.qtgui_time_sink_x_0_0_0_0_1, 0))
+        self.connect((self.blocks_complex_to_mag_1_1_0, 0), (self.qtgui_time_sink_x_0_0_0_0_1_0, 0))
+        self.connect((self.blocks_file_source_0, 0), (self.xcorr_0, 0))
+        self.connect((self.blocks_file_source_0_0, 0), (self.xcorr_0, 1))
+        self.connect((self.blocks_file_source_0_0, 0), (self.xcorr_0_0, 0))
+        self.connect((self.blocks_file_source_0_0_0, 0), (self.xcorr_0_0, 1))
+        self.connect((self.blocks_file_source_0_0_0, 0), (self.xcorr_0_1, 0))
+        self.connect((self.blocks_file_source_0_0_0, 0), (self.xcorr_0_1_0, 0))
+        self.connect((self.blocks_file_source_0_0_0_0, 0), (self.xcorr_0_1, 1))
+        self.connect((self.blocks_throttle_0, 0), (self.blocks_complex_to_mag_1, 0))
+        self.connect((self.blocks_throttle_0_0, 0), (self.blocks_complex_to_mag_1_0, 0))
+        self.connect((self.blocks_throttle_0_0_0, 0), (self.blocks_complex_to_mag_1_1, 0))
+        self.connect((self.blocks_throttle_0_0_0_0, 0), (self.blocks_complex_to_mag_1_1_0, 0))
+        self.connect((self.blocks_vector_source_x_0_0, 0), (self.fft_vxx_0, 0))
+        self.connect((self.blocks_vector_to_stream_0, 0), (self.xcorr_0_1_0, 1))
+        self.connect((self.fft_vxx_0, 0), (self.blocks_vector_to_stream_0, 0))
+        self.connect((self.xcorr_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.xcorr_0_0, 0), (self.blocks_throttle_0_0, 0))
+        self.connect((self.xcorr_0_1, 0), (self.blocks_throttle_0_0_0, 0))
+        self.connect((self.xcorr_0_1_0, 0), (self.blocks_throttle_0_0_0_0, 0))
 
 
     def closeEvent(self, event):
@@ -303,30 +375,48 @@ class xcorr_files(gr.top_block, Qt.QWidget):
         self.set_fft_len(self.seq_len*2)
         self.set_seq(ZC.generate(7,self.seq_len))
 
+    def get_throtle_rate(self):
+        return self.throtle_rate
+
+    def set_throtle_rate(self, throtle_rate):
+        self.throtle_rate = throtle_rate
+        self.blocks_throttle_0.set_sample_rate(self.throtle_rate)
+        self.blocks_throttle_0_0.set_sample_rate(self.throtle_rate)
+        self.blocks_throttle_0_0_0.set_sample_rate(self.throtle_rate)
+        self.blocks_throttle_0_0_0_0.set_sample_rate(self.throtle_rate)
+
     def get_seq(self):
         return self.seq
 
     def set_seq(self, seq):
         self.seq = seq
+        self.blocks_vector_source_x_0_0.set_data(self.seq, [])
 
     def get_samp_rate(self):
         return self.samp_rate
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.blocks_throttle_0.set_sample_rate(self.samp_rate)
-        self.blocks_throttle_0_0.set_sample_rate(self.samp_rate)
-        self.blocks_throttle_0_0_0.set_sample_rate(self.samp_rate)
-        self.blocks_throttle_0_1.set_sample_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_samp_rate(self.samp_rate)
+        self.qtgui_time_sink_x_0_0_0_0_1.set_samp_rate(self.samp_rate)
+        self.qtgui_time_sink_x_0_0_0_0_1_0.set_samp_rate(self.samp_rate)
+
+    def get_number_of_points_multiplier(self):
+        return self.number_of_points_multiplier
+
+    def set_number_of_points_multiplier(self, number_of_points_multiplier):
+        self.number_of_points_multiplier = number_of_points_multiplier
 
     def get_fft_len(self):
         return self.fft_len
 
     def set_fft_len(self, fft_len):
         self.fft_len = fft_len
+        self.xcorr_0.set_fft_len(self.fft_len)
+        self.xcorr_0_0.set_fft_len(self.fft_len)
+        self.xcorr_0_1.set_fft_len(self.fft_len)
+        self.xcorr_0_1_0.set_fft_len(self.fft_len)
 
 
 
