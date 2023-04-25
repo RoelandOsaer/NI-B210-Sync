@@ -111,7 +111,7 @@ plt.show()
 
 fig, axs = plt.subplots(4, sharex=True)
 for i in range(4):
-    samples = np.fromfile(pjoin(dirname, "results", "250e3Sps", files[i]), dtype=dt)
+    samples = np.fromfile(pjoin(dirname, "results", "1e6Sps", files[i]), dtype=dt)
     iq_samples = samples['i']+1j*samples['q']
 
     if zc_time is None:
