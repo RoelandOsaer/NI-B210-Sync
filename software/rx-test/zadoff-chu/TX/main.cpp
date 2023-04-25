@@ -23,7 +23,9 @@ namespace po = boost::program_options;
 
 zmq::context_t context(1);
 
-using sample_t = std::complex<float>;
+using sample_dt = int16_t;
+
+using sample_t = std::complex<sample_dt>;
 
 std::vector<sample_t> read_ZC_seq(int min_samples)
 {
@@ -39,7 +41,7 @@ std::vector<sample_t> read_ZC_seq(int min_samples)
         auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
         auto samples_in_file = file_size / sizeof(sample_t);
 
-        int num_repetitions = std::ceil(static_cast<float>(min_samples) / samples_in_file);
+        int num_repetitions = std::ceil(static_cast<sample_dt>(min_samples) / samples_in_file);
 
         std::vector<sample_t> samples;
         samples.resize(samples_in_file * num_repetitions);
@@ -178,7 +180,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::cout << "Serial number: " << serial << std::endl;
 
-        uhd::stream_args_t stream_args("fc32"); // complex shorts (uint16_t)
+        uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
         stream_args.channels = {0};
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
