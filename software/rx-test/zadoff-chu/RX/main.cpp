@@ -17,7 +17,7 @@ namespace po = boost::program_options;
 
 zmq::context_t context(1);
 
-using sample_dt = int16;
+using sample_dt = int16_t;
 
 using sample_t = std::complex<sample_dt>;
 
