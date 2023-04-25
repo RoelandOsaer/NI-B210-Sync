@@ -9,12 +9,6 @@ server_root: "/home/pi/NI-B210-Sync/software/rx-test"
 rates: 
   - 250e3
   - 1e6
-  - 4e6
-  - 10e6
-  - 15e6
-  - 20e6
-  - 25e6
-  - 30e6
-  - 40e6
+
 
 
