@@ -180,7 +180,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::cout << "Serial number: " << serial << std::endl;
 
-        uhd::stream_args_t stream_args("fc32"); // complex shorts (uint16_t)
+        uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
         stream_args.channels = {0};
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
