@@ -47,14 +47,14 @@ yzch = generate(u=1, seq_length=NZC)
 
 
 # padd with zeros 
-idx = (num_samples-NZC)//2
-samples[idx:idx+NZC] = yzch
+samples[:NZC] = yzch
 
 # Conform to:
 # a[0] should contain the zero frequency term,
 # a[1:n//2] should contain the positive-frequency terms,
 # a[n//2 + 1:] should contain the negative-frequency terms, in increasing order starting from the most negative frequency.
-samples = np.fft.ifftshift(samples)
+#samples = np.fft.ifftshift(samples)
+samples = np.roll(samples, -NZC//2)
 
 time_samples = np.fft.ifft(samples)
 
@@ -69,4 +69,4 @@ time_samples_int16 = np.zeros(num_samples, dtype=dt)
 time_samples_int16['re'] = time_samples.real * (2**15)
 time_samples_int16['im'] = time_samples.imag * (2**15)
 
-time_samples_int16.tofile('zc-sequence.dat')
+time_samples_int16.tofile('zc-sequence-sc16.dat')
