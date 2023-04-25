@@ -82,10 +82,10 @@ class xcorr_files(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.seq_len = seq_len = 353
-        self.throtle_rate = throtle_rate = 2e6
+        self.throtle_rate = throtle_rate = 5e6
         self.seq = seq = ZC.generate(7,seq_len)
-        self.samp_rate = samp_rate = 250e3
-        self.number_of_points_multiplier = number_of_points_multiplier = 2
+        self.samp_rate = samp_rate = 15e6
+        self.number_of_points_multiplier = number_of_points_multiplier = 15
         self.fft_len = fft_len = seq_len*2
 
         ##################################################
@@ -318,13 +318,13 @@ class xcorr_files(gr.top_block, Qt.QWidget):
         self.blocks_throttle_0_0_0 = blocks.throttle(gr.sizeof_gr_complex*1, throtle_rate,True)
         self.blocks_throttle_0_0 = blocks.throttle(gr.sizeof_gr_complex*1, throtle_rate,True)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, throtle_rate,True)
-        self.blocks_file_source_0_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_1.dat', False, 0, 0)
+        self.blocks_file_source_0_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DEA71_1.dat', False, 0, 0)
         self.blocks_file_source_0_0_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_0.dat', False, 0, 0)
+        self.blocks_file_source_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DEA71_0.dat', False, 0, 0)
         self.blocks_file_source_0_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_1.dat', False, 0, 0)
+        self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DBE03_1.dat', False, 0, 0)
         self.blocks_file_source_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_0.dat', False, 0, 0)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DBE03_0.dat', False, 0, 0)
         self.blocks_file_source_0.set_begin_tag(pmt.PMT_NIL)
         self.blocks_complex_to_mag_1_1_0 = blocks.complex_to_mag(1)
         self.blocks_complex_to_mag_1_1 = blocks.complex_to_mag(1)

@@ -17,7 +17,7 @@ namespace po = boost::program_options;
 
 zmq::context_t context(1);
 
-using sample_dt = int16;
+using sample_dt = int16_t;
 
 using sample_t = std::complex<sample_dt>;
 
@@ -113,7 +113,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::cout << "Serial number: " << serial << std::endl;
 
-        uhd::stream_args_t stream_args("fc32"); // complex shorts (uint16_t)
+        uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
         stream_args.channels = {0,1};
         uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
 

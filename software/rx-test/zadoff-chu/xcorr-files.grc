@@ -49,7 +49,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '2'
+    value: '15'
   states:
     bus_sink: false
     bus_source: false
@@ -61,7 +61,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 250e3
+    value: 15e6
   states:
     bus_sink: false
     bus_source: false
@@ -97,7 +97,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 2e6
+    value: 5e6
   states:
     bus_sink: false
     bus_source: false
@@ -205,7 +205,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_0.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DBE03_0.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -227,7 +227,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DBE03_1.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DBE03_1.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -249,7 +249,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_0.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DEA71_0.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -271,7 +271,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile-ursp/NI-B210-Sync/software/results/250e3Sps/usrp_samples_31DEA71_1.dat
+    file: /home/techtile-ursp/NI-B210-Sync/software/results/15e6Sps/usrp_samples_31DEA71_1.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
