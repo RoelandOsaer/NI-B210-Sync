@@ -17,7 +17,9 @@ namespace po = boost::program_options;
 
 zmq::context_t context(1);
 
+using sample_dt = int16;
 
+using sample_t = std::complex<sample_dt>;
 
 void ready_to_go(std::string id, std::string server_ip)
 {
@@ -241,12 +243,12 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         size_t num_requested_samples = rate * 3; 
         size_t nsamps_per_buff = rx_stream->get_max_num_samps();
-        // std::vector<std::vector<std::complex<float>>> buff(usrp->get_rx_num_channels(), std::vector<std::complex<float>>(nsamps_per_buff));     
+        // std::vector<std::vector<sample_t>> buff(usrp->get_rx_num_channels(), std::vector<sample_t>(nsamps_per_buff));     
         /* Allocate large buffer to store all samples */
 
-        std::vector<std::vector<std::complex<float>>> buff(usrp->get_rx_num_channels(), std::vector<std::complex<float>>(num_requested_samples));
+        std::vector<std::vector<sample_t>> buff(usrp->get_rx_num_channels(), std::vector<sample_t>(num_requested_samples));
 
-        std::vector<std::complex<float> *> buff_ptrs;
+        std::vector<sample_t *> buff_ptrs;
 	for (size_t i = 0; i < buff.size(); i++)
 		buff_ptrs.push_back(&buff[i].front());
         uhd::rx_metadata_t md;
@@ -333,11 +335,11 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         if (outfile_0.is_open())
         {
-                outfile_0.write((const char *)&buff[0].front(), num_requested_samples * sizeof(std::complex<float>));
+                outfile_0.write((const char *)&buff[0].front(), num_requested_samples * sizeof(sample_t));
         }
         if (outfile_1.is_open())
         {
-                outfile_1.write((const char *)&buff[1].front(), num_requested_samples * sizeof(std::complex<float>));
+                outfile_1.write((const char *)&buff[1].front(), num_requested_samples * sizeof(sample_t));
         }
 
         if (outfile_0.is_open())
@@ -352,7 +354,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         
 
-        // std::vector<std::complex<float>> buff(rx_stream->get_max_num_samps());
+        // std::vector<sample_t> buff(rx_stream->get_max_num_samps());
         // uhd::rx_metadata_t md;
 
         // std::cout << "Receiving now..."
