@@ -203,6 +203,10 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_time_next_pps(uhd::time_spec_t(0.0));
         std::cout << "[SYNC] Resetting time." << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        
+        usrp->set_command_time(uhd::time_spec_t(4.0));
+ 	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
+	usrp->clear_command_time();
 
         /********************************************/
         /**************** start tuning **************/
@@ -269,10 +273,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         cmd_time += 5; //16
         md.time_spec = uhd::time_spec_t(cmd_time);
-        
-        usrp->set_command_time(uhd::time_spec_t(cmd_time));
-        usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
-
+   
         size_t num_requested_samples = rate*2;
 
         size_t num_total_samps = 0;
