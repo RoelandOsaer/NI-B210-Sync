@@ -7,8 +7,15 @@ RX_root: "/home/pi/NI-B210-Sync/software/rx-test/zadoff-chu/RX"
 server: "10.128.52.28"
 server_root: "/home/pi/NI-B210-Sync/software/rx-test"
 rates: 
-  - 250e3
-  - 1e6
+ # - 250e3
+ # - 1e6
+ # - 5e6
+  - 10e6
+  - 15e6
+  - 20e6
+ # - 25e6
+ # - 30e6
+
 
 
 
