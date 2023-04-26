@@ -147,7 +147,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	
 	
-	usrp->set_command_time(uhd::time_spec_t(4));
+	usrp->set_command_time(uhd::time_spec_t(4.0));
  	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
 	usrp->clear_command_time();
 
