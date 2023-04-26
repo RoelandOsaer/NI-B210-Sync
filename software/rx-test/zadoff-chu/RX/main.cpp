@@ -267,6 +267,12 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_cmd.num_samps = num_requested_samples;
         std::cout << num_requested_samples << std::endl;
         cmd_time += 4.0; //15
+	
+	usrp->set_command_time(uhd::time_spec_t(cmd_time));
+ 	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
+	usrp->clear_command_time();
+	
+	
         // std::cout << usrp->get_time_now().get_real_secs() << std::endl;
         stream_cmd.time_spec = uhd::time_spec_t(cmd_time);
 
@@ -282,9 +288,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         usrp->clear_command_time();
 	
-	usrp->set_command_time(uhd::time_spec_t(cmd_time));
- 	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
-	usrp->clear_command_time();
+	
 
         // std::cout << rx_stream->get_max_num_samps() << std::endl;
 
