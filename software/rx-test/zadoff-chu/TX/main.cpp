@@ -41,10 +41,7 @@ std::vector<sample_t> read_ZC_seq(int min_samples)
         auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
         auto samples_in_file = file_size / sizeof(sample_t);
         
-        std::cout << "samples_in_file: " << samples_in_file <<std::endl;
-
         int num_repetitions = std::ceil(static_cast<sample_dt>(min_samples) / samples_in_file);
-        std::cout << "num_repetitions: " << num_repetitions <<std::endl;
 
         std::vector<sample_t> samples;
         samples.resize(samples_in_file * num_repetitions);
@@ -66,6 +63,7 @@ std::vector<sample_t> read_ZC_seq(int min_samples)
                 input_file.read(reinterpret_cast<char *>(buff_ptr), samples_in_file * sizeof(sample_t));
                 buff_ptr += samples_in_file;
         }
+        std::cout << "samples_length: " << samples.size() << std::endl;
 
         return samples;
 
