@@ -269,6 +269,9 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         cmd_time += 5; //16
         md.time_spec = uhd::time_spec_t(cmd_time);
+        
+        usrp->set_command_time(uhd::time_spec_t(cmd_time));
+        usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
 
         size_t num_requested_samples = rate*2;
 
