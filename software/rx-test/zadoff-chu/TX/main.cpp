@@ -40,8 +40,11 @@ std::vector<sample_t> read_ZC_seq(int min_samples)
         // calculate how many samples to read
         auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
         auto samples_in_file = file_size / sizeof(sample_t);
+        
+        std::cout << "samples_in_file: " << samples_in_file <<std::endl;
 
         int num_repetitions = std::ceil(static_cast<sample_dt>(min_samples) / samples_in_file);
+        std::cout << "num_repetitions: " << num_repetitions <<std::endl;
 
         std::vector<sample_t> samples;
         samples.resize(samples_in_file * num_repetitions);
@@ -185,7 +188,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
         size_t nsamps_per_buff = tx_stream->get_max_num_samps();
-        std::cout << "nsamps_per_buff: " << nsamps_per_buff<<std::endl;
+        std::cout << "nsamps_per_buff: " << nsamps_per_buff<<std::endl;         //zelfde voor verschillende freq
         std::vector<sample_t> seq = read_ZC_seq(nsamps_per_buff);
 
         if (!ignore_sync)
