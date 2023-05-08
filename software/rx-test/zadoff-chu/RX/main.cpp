@@ -194,14 +194,14 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         tune_request.args = uhd::device_addr_t("mode_n=integer");
         //tune_request.dsp_freq = freq + 80e6; // target_freq = rf_freq + sign * dsp_freq TX = - and RX = + 
 
-        cmd_time += 2.0;
+        cmd_time += 2.0; //11
         usrp->set_command_time(uhd::time_spec_t(cmd_time));
         usrp->set_rx_freq(tune_request, 0);
         usrp->set_rx_freq(tune_request, 1);
         usrp->clear_command_time();
 
         // busy waiting to be sure setting is done
-        cmd_time += 2.0; //11
+        cmd_time += 2.0; //13
         while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
 
 
@@ -271,7 +271,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_cmd.stream_now = false;
         stream_cmd.num_samps = num_requested_samples;
         std::cout << num_requested_samples << std::endl;
-        cmd_time += 4.0; //15
+        cmd_time += 4.0; //17
 	
 	
 	
