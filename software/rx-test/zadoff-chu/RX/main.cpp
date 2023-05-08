@@ -166,7 +166,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         // set the rx sample rate
         std::cout << boost::format("Setting RX Rate: %f Msps...") % (rate / 1e6) << std::endl;
         cmd_time += 5.0; //7
-        usrp->set_command_time(uhd::time_spec_t(0.0));
+        usrp->set_command_time(uhd::time_spec_t(cmd_time));
         usrp->set_rx_rate(rate);
         usrp->clear_command_time();
 
