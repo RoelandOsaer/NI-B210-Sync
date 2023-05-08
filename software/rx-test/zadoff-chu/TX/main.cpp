@@ -249,13 +249,13 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         tune_request.args = uhd::device_addr_t("mode_n=integer");
         //tune_request.dsp_freq = freq + 80e6; // target_freq = rf_freq + sign * dsp_freq TX = - and RX = + 
 
-        cmd_time += 2.0;
+        cmd_time += 2.0; //11
         usrp->set_command_time(uhd::time_spec_t(cmd_time));
         usrp->set_tx_freq(tune_request, 0);
         usrp->clear_command_time();
 
         // busy waiting to be sure setting is done
-        cmd_time += 2.0; //11
+        cmd_time += 2.0; //13
         while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
 
 
@@ -271,7 +271,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         md.end_of_burst = false;
         md.has_time_spec = true;
 
-        cmd_time += 5; //16
+        cmd_time += 5; //18
         md.time_spec = uhd::time_spec_t(cmd_time);
    
         size_t num_requested_samples = rate*2;
@@ -279,7 +279,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         size_t num_total_samps = 0;
         
 
-        double timeout = cmd_time + 4.0f;
+        double timeout = cmd_time + 3.0f;
 
         std::cout << "Locked: " << usrp->get_tx_sensor("lo_locked").to_bool() << std::endl;
 
