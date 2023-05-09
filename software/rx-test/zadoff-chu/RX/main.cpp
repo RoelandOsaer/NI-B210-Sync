@@ -147,7 +147,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	
 	
-	usrp->set_command_time(uhd::time_spec_t(4.0));
+	usrp->set_command_time(uhd::time_spec_t(3.0));
  	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
 	usrp->clear_command_time();
 
@@ -166,6 +166,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         // set the rx sample rate
         std::cout << boost::format("Setting RX Rate: %f Msps...") % (rate / 1e6) << std::endl;
         cmd_time += 2.0; //7
+	while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
         usrp->set_command_time(uhd::time_spec_t(cmd_time));
         usrp->set_rx_rate(rate);
         usrp->clear_command_time();
