@@ -203,12 +203,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_time_next_pps(uhd::time_spec_t(0.0));
         std::cout << "[SYNC] Resetting time." << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-        
-<<<<<<< HEAD
-        usrp->set_command_time(uhd::time_spec_t(4.0));
-=======
+    
         usrp->set_command_time(uhd::time_spec_t(3.0));
->>>>>>> be66da17b6db900ed1850dac24bb462a8edc0093
  	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
 	usrp->clear_command_time();
 
