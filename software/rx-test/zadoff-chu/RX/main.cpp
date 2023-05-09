@@ -100,7 +100,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::cout << "Setting up GPIO" << std::endl;
         usrp->set_gpio_attr("FP0", "DDR", all_one, gpio_line, 0);
         usrp->set_gpio_attr("FP0", "CTRL", all_zero, gpio_line, 0);
-        usrp->set_gpio_attr("FP0", "OUT", all_zero, gpio_line, 0); // reset LOW (async)
+        usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0); // reset LOW (async)
 
         // initialise
         std::cout << "Setting up PPS + 10MHz" << std::endl;
