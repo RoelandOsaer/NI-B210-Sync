@@ -105,7 +105,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_clock_source("external");
         usrp->set_time_source("external");
 
-        std::map<std::string, std::string> m = usrp->get_usrp_tx_info();
+        std::map<std::string, std::string> m = usrp->get_usrp_rx_info();
         std::string serial = m["mboard_serial"];
         std::cout << "Serial number: " << serial << std::endl;
 
@@ -125,8 +125,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     
         usrp->set_command_time(uhd::time_spec_t(4.0));
- 	      usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
-	      usrp->clear_command_time();
+ 	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
+	usrp->clear_command_time();
         
         // finished
         std::cout << std::endl << "Done!" << std::endl << std::endl;
