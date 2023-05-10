@@ -109,6 +109,10 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::string serial = m["mboard_serial"];
         std::cout << "Serial number: " << serial << std::endl;
 
+	uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
+        stream_args.channels = {0,1};
+        uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
+	
         if (!ignore_sync)
         {
                 ready_to_go(serial,server_ip);        // non-blocking
