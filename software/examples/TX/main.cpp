@@ -176,9 +176,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_time_source("external");
 
         std::map<std::string, std::string> m = usrp->get_usrp_tx_info();
-
         std::string serial = m["mboard_serial"];
-
         std::cout << "Serial number: " << serial << std::endl;
 
 
