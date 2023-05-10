@@ -181,9 +181,6 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::cout << "Serial number: " << serial << std::endl;
 
-        uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
-        stream_args.channels = {0};
-        uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
         size_t nsamps_per_buff = tx_stream->get_max_num_samps();
         std::cout << "nsamps_per_buff: " << nsamps_per_buff<<std::endl;         //zelfde voor verschillende freq
@@ -205,8 +202,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     
         usrp->set_command_time(uhd::time_spec_t(4.0));
- 	      usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
-	      usrp->clear_command_time();
+ 	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
+	usrp->clear_command_time();
 
         // finished
         std::cout << std::endl << "Done!" << std::endl << std::endl;
