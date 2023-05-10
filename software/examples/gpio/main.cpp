@@ -113,6 +113,14 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_args.channels = {0,1};
         uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
 	
+	//std::string file = "../usrp_samples_" + serial + "_0.dat";
+        //std::ofstream outfile_0;
+        //outfile_0.open(file.c_str(), std::ofstream::binary | std::ios::trunc);
+
+        //file = "../usrp_samples_" + serial + "_1.dat";
+        //std::ofstream outfile_1;
+        //outfile_1.open(file.c_str(), std::ofstream::binary | std::ios::trunc);
+	
         if (!ignore_sync)
         {
                 ready_to_go(serial,server_ip);        // non-blocking
