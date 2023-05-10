@@ -30,7 +30,7 @@ using sample_t = std::complex<sample_dt>;
 std::vector<sample_t> read_ZC_seq(int min_samples)
 {
         // adapted from https://wiki.gnuradio.org/index.php/File_Sink
-        std::string filename = "../zc-sequence-sc16.dat";
+        std::string filename = "../zc-sequence.dat";
         // check whether file exists
         if (!std::filesystem::exists(filename.data()))
         {
