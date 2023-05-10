@@ -175,9 +175,9 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_clock_source("external");
         usrp->set_time_source("external");
 
-       // std::map<std::string, std::string> m = usrp->get_usrp_tx_info();
-       // std::string serial = m["mboard_serial"];
-       // std::cout << "Serial number: " << serial << std::endl;
+       	std::map<std::string, std::string> m = usrp->get_usrp_tx_info();
+       	std::string serial = m["mboard_serial"];
+       	std::cout << "Serial number: " << serial << std::endl;
 
 	//uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
         //stream_args.channels = {0};
