@@ -17,7 +17,7 @@
 
 namespace po = boost::program_options;
 
-zmq::context_t context(1);
+zmq::context_t context(1); 
 
     void ready_to_go(std::string id, std::string server_ip)
 {
