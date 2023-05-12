@@ -73,6 +73,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         ("server-ip", po::value<std::string>(&server_ip), "SYNC server IP address")
         ("rate", po::value<double>(&rate)->default_value(10e6), "rate of incoming samples")
         ("ignore-server", po::bool_switch(&ignore_sync), "Discard waiting till SYNC server");
+	
+	std::cout << str_args << "\n";
 
         po::variables_map vm;
         po::store(po::parse_command_line(argc, argv, desc), vm);
