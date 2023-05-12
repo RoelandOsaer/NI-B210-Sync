@@ -141,7 +141,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         ("args", po::value<std::string>(&str_args)->default_value("type=b210"), "give device arguments here")
         ("iq_port", po::value<std::string>(&port)->default_value("8888"), "Port to stream IQ samples to")
         ("server-ip", po::value<std::string>(&server_ip), "SYNC server IP address")
-        ("rate", po::value<double>(&rate)->default_value(1e6), "rate of incoming samples")
+        ("rate", po::value<double>(&rate)->default_value(10e6), "rate of incoming samples")
         ("ignore-server", po::bool_switch(&ignore_sync), "Discard waiting till SYNC server");
 
         po::variables_map vm;
@@ -202,10 +202,10 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::cout << "[SYNC] Resetting time." << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     
-        usrp->set_command_time(uhd::time_spec_t(2.0));
+        usrp->set_command_time(uhd::time_spec_t(3.0));
  	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
 	usrp->clear_command_time();
-	std::this_thread::sleep_for(std::chrono::milliseconds(2500));
+	std::this_thread::sleep_for(std::chrono::milliseconds(7500));
         // finished
         std::cout << std::endl << "Done!" << std::endl << std::endl;
 
