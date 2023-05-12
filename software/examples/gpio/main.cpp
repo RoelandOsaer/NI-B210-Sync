@@ -81,7 +81,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 	
 	std::cout << "str_args: " << str_args << std::endl;
 	std::cout << "iq_port: " << server_ip << std::endl;
-	std::cout << "rate: " << std::to_string(rate) << std::endl;
+	//std::cout << "rate: " << std::to_string(rate) << std::endl;
 
         if (vm.count("help"))
         {
