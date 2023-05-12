@@ -136,10 +136,10 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::cout << "[SYNC] Resetting time." << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     
-        usrp->set_command_time(uhd::time_spec_t(2.0));
+        usrp->set_command_time(uhd::time_spec_t(3.0));
  	usrp->set_gpio_attr("FP0", "OUT", all_one, gpio_line, 0);
 	usrp->clear_command_time();
-	std::this_thread::sleep_for(std::chrono::milliseconds(2500));
+	std::this_thread::sleep_for(std::chrono::milliseconds(7500));
         
         // finished
         std::cout << std::endl << "Done!" << std::endl << std::endl;
