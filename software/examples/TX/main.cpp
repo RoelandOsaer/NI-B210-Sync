@@ -141,7 +141,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         ("args", po::value<std::string>(&str_args)->default_value("type=b200"), "give device arguments here")
         ("iq_port", po::value<std::string>(&port)->default_value("8888"), "Port to stream IQ samples to")
         ("server-ip", po::value<std::string>(&server_ip), "SYNC server IP address")
-        //("rate", po::value<double>(&rate)->default_value(10e6), "rate of incoming samples")
+        ("rate", po::value<double>(&rate)->default_value(1e6), "rate of incoming samples")
         ("ignore-server", po::bool_switch(&ignore_sync), "Discard waiting till SYNC server");
 
 	std::cout << "str_args: " << str_args << std::endl;
