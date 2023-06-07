@@ -64,7 +64,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::string port;
         std::string server_ip;
         bool ignore_sync = false;
-        //double rate;
+        double rate;
 
         po::options_description desc("Allowed options");
         desc.add_options()("help", "produce help message")
