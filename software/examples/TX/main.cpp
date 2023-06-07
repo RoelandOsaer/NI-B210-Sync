@@ -183,13 +183,13 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
        	std::string serial = m["mboard_serial"];
        	std::cout << "Serial number: " << serial << std::endl;
 
-	# uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
-        # stream_args.channels = {0};
-        # uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
+	// uhd::stream_args_t stream_args("sc16"); // complex shorts (uint16_t)
+        // stream_args.channels = {0};
+        // uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 	
-        # size_t nsamps_per_buff = tx_stream->get_max_num_samps();
-        # std::cout << "nsamps_per_buff: " << nsamps_per_buff<<std::endl;         //zelfde voor verschillende freq
-        # std::vector<sample_t> seq = read_ZC_seq(nsamps_per_buff);
+        // size_t nsamps_per_buff = tx_stream->get_max_num_samps();
+        // std::cout << "nsamps_per_buff: " << nsamps_per_buff<<std::endl;         //zelfde voor verschillende freq
+        // std::vector<sample_t> seq = read_ZC_seq(nsamps_per_buff);
 
         if (!ignore_sync)
         {
