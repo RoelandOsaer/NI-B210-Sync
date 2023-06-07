@@ -19,7 +19,7 @@ set(CMAKE_CXX_STANDARD 17)
 option(UHD_USE_STATIC_LIBS OFF)
 
 # To add UHD as a dependency to this project, add a line such as this:
-find_package(UHD 4.4 REQUIRED)
+find_package(UHD 4.0 REQUIRED)
 
 ## load in pkg-config support
 find_package(PkgConfig)
